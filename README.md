@@ -4,4 +4,4 @@ Very simple Web View wrapper for web app UndeadLifts
 
 ![][]
 
-  []: http://www.github.com/leok7v/android-undeadLifts/logo.png
+  []: https://github.com/leok7v/android-undeadLifts/blob/master/logo.png
