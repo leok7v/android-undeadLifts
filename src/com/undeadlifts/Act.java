@@ -43,6 +43,7 @@ import static android.view.ViewGroup.LayoutParams.*;
 @SuppressWarnings("NullableProblems")
 public class Act extends Activity {
 
+    private Handler handler = new Handler();
     private View cv;
     private WebView wv;
 
@@ -50,7 +51,6 @@ public class Act extends Activity {
         super.onCreate(savedInstanceState);
         cv = new Splash(this);
         setContentView(cv);
-
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -67,6 +67,7 @@ public class Act extends Activity {
         wv.getSettings().setAppCacheEnabled(true);
         wv.getSettings().setAppCacheMaxSize(100 * 1024 * 1024); // 100MB
         wv.setWebViewClient(new WebViewClient() {
+
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
@@ -75,7 +76,7 @@ public class Act extends Activity {
             public void onPageFinished(WebView view, final String url) {
                 if (cv instanceof Splash) {
                     cv = wv;
-                    setContentView(cv);
+                    handler.postDelayed(new Runnable() { public void run() { setContentView(cv); } }, 750);
                 }
             }
         });
@@ -105,7 +106,7 @@ public class Act extends Activity {
         public void draw(Canvas c) {
             super.draw(c);
             if (!posted) {
-                new Handler().post(new Runnable() { public void run() { init(); } });
+                handler.post(new Runnable() { public void run() { init(); } });
                 posted = true;
             }
             if (bitmap == null) {
