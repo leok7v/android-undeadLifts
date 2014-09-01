@@ -40,9 +40,9 @@ import java.io.*;
 
 import static android.view.ViewGroup.LayoutParams.*;
 
+@SuppressWarnings("NullableProblems")
 public class Act extends Activity {
 
-    private ProgressDialog progress;
     private View cv;
     private WebView wv;
 
@@ -66,17 +66,13 @@ public class Act extends Activity {
         wv.getSettings().setBuiltInZoomControls(false);
         wv.getSettings().setAppCacheEnabled(true);
         wv.getSettings().setAppCacheMaxSize(100 * 1024 * 1024); // 100MB
-//      progress = ProgressDialog.show(this, "Loading", "Please wait...", true);
-//      progress.setCancelable(false);
         wv.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//              progress.show();
                 view.loadUrl(url);
                 return true;
             }
 
             public void onPageFinished(WebView view, final String url) {
-//              progress.dismiss();
                 if (cv instanceof Splash) {
                     cv = wv;
                     setContentView(cv);
